@@ -1,0 +1,7 @@
+*test*
+*.jar
+json-parsing/
+
+*swp
+*~
+Makefile
