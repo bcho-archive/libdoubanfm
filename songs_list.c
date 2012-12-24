@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 #include "json.h"
+#include "utils.h"
 #include "songs_list.h"
 
 void string_attribute_copy(char **dest, json_value *src)
@@ -144,4 +145,28 @@ void songs_list_finish(doubanfm_songs_list_t *list)
 int songs_list_is_finish(doubanfm_songs_list_t *list)
 {
     return (list->r->length <= 0);
+}
+
+char *songs_list_format_list(songs_list_t *list, char *verb)
+{
+    char *ret, *prev, *cur, *id;
+    int i;
+    song_t *song;
+
+    ret = malloc(sizeof(char) * 0);
+    for (i = 0, prev = ret;i < list->length;i++) {
+        song = (list->songs + i);
+        if (verb != NULL)
+            /* FIXME sid or aid or other? */
+            id = join(song->sid, verb, ':');
+        else
+            id = song->sid;
+        ret = join(prev, id, '|');
+        free(prev);
+        prev = ret;
+        if (verb != NULL)
+            free(id);
+    }
+
+    return ret;
 }

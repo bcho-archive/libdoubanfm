@@ -37,4 +37,5 @@ void songs_list_free(doubanfm_songs_list_t *list);
 song_t *songs_list_get(doubanfm_songs_list_t *list);
 void songs_list_finish(doubanfm_songs_list_t *list);
 int songs_list_is_finish(doubanfm_songs_list_t *list);
+char *songs_list_format_list(songs_list_t *list, char *verb);
 #endif
